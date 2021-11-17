@@ -14,7 +14,7 @@
         </th>
       </thead>
       <tbody>
-        <tr v-for="i in 10" :key="'tr' + i">
+        <tr v-for="(row, i) in inputArray" :key="'tr' + i">
           <td class="etapp">{{ i }}</td>
           <td class="protsess">
             {{
@@ -27,8 +27,13 @@
                 : "-"
             }}
           </td>
-          <td v-for="j in 50" :key="'td' + i + '-' + j" class="data">
-            {{ inputArray ? formatedArray[i - 1][j - 1] : "-" }}
+          <td
+            v-for="(element, j) in row"
+            :key="'td' + i + '-' + j"
+            class="data"
+            :cellspan="element[2] - element[1]"
+          >
+            {{ inputArray ? element[0] : "-" }}
           </td>
         </tr>
       </tbody>
@@ -56,26 +61,7 @@ export default {
       alphabet: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],
     };
   },
-  computed: {
-    formatedArray: function () {
-      let arr = [];
-      for (let index = 0; index < this.inputArray.length; index++) {
-        const etapp = this.inputArray[index];
-        const row = [];
-        for (let i = 0; i < 50; i++) {
-          if (etapp[0][1] <= i) {
-            row.push(etapp[0][0]);
-            etapp[0][3] -= 1;
-            if (etapp[0][3] == 0) {
-              etapp.shift();
-            }
-          } else row.push("-");
-        }
-      }
-
-      return arr;
-    },
-  },
+  computed: {},
 };
 </script>
 

@@ -120,7 +120,7 @@ export default {
         selectedArray: null,
         customArray: "",
       },
-      inputArray: { result: null },
+      inputArray: null,
       alphabet: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],
       usedAlgorithm: null,
       processes: [],
