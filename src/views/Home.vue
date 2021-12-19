@@ -143,7 +143,7 @@ export default {
     },
     clearGraph: function () {
       this.inputArray = null;
-      this.usedAlgorithm = null;
+      this.usedAlgorithm = undefined;
     },
     firstFit: function () {
       console.log("First-Fit algorithm initiated.");

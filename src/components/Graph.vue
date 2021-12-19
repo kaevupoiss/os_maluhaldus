@@ -1,43 +1,39 @@
 <template>
   <div class="graph">
     <p>{{ usedAlgorithm }}</p>
-    <table>
-      <thead>
-        <th class="etapp">
+    <div class="table">
+      <div class="table-head">
+        <div class="th etapp">
           <b>Etapp</b>
-        </th>
-        <th class="protsess">
+        </div>
+        <div class="th protsess">
           <b>Lisatud Protsess</b>
-        </th>
-        <th v-for="i in 50" :key="'th' + i">
+        </div>
+        <div v-for="i in 50" :key="'th' + i" class="th">
           {{ i - 1 }}
-        </th>
-      </thead>
-      <tbody>
-        <tr v-for="(row, i) in inputArray" :key="'tr' + i">
-          <td class="etapp">{{ i }}</td>
-          <td class="protsess">
+        </div>
+      </div>
+      <div class="table-body">
+        <div class="table-row" v-for="(row, i) in inputArray" :key="'tr' + i">
+          <div class="td etapp">{{ i }}</div>
+          <div class="td protsess">
             {{
-              inputArray
-                ? alphabet[i - 1] +
-                  " : " +
-                  processes[i - 1][0] +
-                  "," +
-                  processes[i - 1][1]
+              processes[i]
+                ? alphabet[i] + " : " + processes[i][0] + "," + processes[i][1]
                 : "-"
             }}
-          </td>
-          <td
+          </div>
+          <div
             v-for="(element, j) in row"
             :key="'td' + i + '-' + j"
-            class="data"
-            :cellspan="element[2] - element[1]"
+            class="td data"
+            :style="{ gridColumn: element[1] + 3 + ' / ' + (element[2] + 3) }"
           >
             {{ inputArray ? element[0] : "-" }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -74,15 +70,25 @@ export default {
   }
 }
 
-td.data {
-  border: 1px solid $grey500;
-  width: 1.5rem;
-  height: 1.5rem;
-  text-align: center;
+.table-head {
+  display: grid;
+  grid-template-columns: 4rem 6rem repeat(50, 1fr);
 }
 
-td.protsess,
-th.protsess {
-  padding: 0 1rem;
+.table-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 4rem 6rem repeat(50, 1fr);
+  grid-template-rows: 1.5rem;
+}
+
+.td.data {
+  grid-row: 1;
+  background-color: rgba($color: $blue100, $alpha: 1);
+  text-align: center;
 }
 </style>
