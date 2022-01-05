@@ -1,5 +1,11 @@
 # os_maluhaldus
 
+Vastus Küsimusele:
+
+Kas meie ülesande tingimustel esineb a) sisemist fragmenteerumist ja b) välist fragmenteerumist? Miks?
+
+Meie ülesande tingimustel esineb välist fragmenteerumist. Vaba mälu leidub, kuid see ei ole sidus. Protsessid võtavad täpselt nii palju ruumi kui neil vaja.
+
 ## Project setup
 ```
 npm install

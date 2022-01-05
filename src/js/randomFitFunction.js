@@ -1,8 +1,9 @@
 import _cloneDeep from "lodash/cloneDeep";
+import _shuffle from "lodash/shuffle";
 
 const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 
-export function firstFitFunction(inputArray) {
+export function randomFitFunction(inputArray) {
   const returnArray = [];
   //* [[[startX, endX (exclusive), length], ...], ...]
   const freeArrayIndexesCollection = [];
@@ -58,8 +59,10 @@ export function firstFitFunction(inputArray) {
 
     let tempArr = _cloneDeep(etappArray);
     const freeArrayIndexesLength = freeArrayIndexes.length;
+    let shuffledFreeArrayIndexes = _shuffle(freeArrayIndexes);
+    console.log(shuffledFreeArrayIndexes);
     for (let index = 0; index < freeArrayIndexesLength; index++) {
-      let freeIndex = freeArrayIndexes.shift();
+      let freeIndex = shuffledFreeArrayIndexes.shift();
 
       if (freeIndex[2] >= arrayItem[0]) {
         let newProcess = [
@@ -73,12 +76,12 @@ export function firstFitFunction(inputArray) {
         freeIndex[0] += arrayItem[0];
         freeIndex[2] -= arrayItem[0];
 
-        freeArrayIndexes.push(freeIndex);
+        shuffledFreeArrayIndexes.push(freeIndex);
 
         break;
       }
 
-      freeArrayIndexes.push(freeIndex);
+      shuffledFreeArrayIndexes.push(freeIndex);
 
       if (index == freeArrayIndexes.length - 1) {
         tempArr = [[null, 0, 50, 1]];
@@ -86,7 +89,7 @@ export function firstFitFunction(inputArray) {
     }
 
     // Eemalda lõpetatud täis ruumid vabast mälust
-    freeArrayIndexes = _cloneDeep(freeArrayIndexes).filter(
+    freeArrayIndexes = _cloneDeep(shuffledFreeArrayIndexes).filter(
       (item) => item[2] > 0
     );
 

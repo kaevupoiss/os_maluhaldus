@@ -2,7 +2,7 @@ import _cloneDeep from "lodash/cloneDeep";
 
 const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 
-export function firstFitFunction(inputArray) {
+export function lastFitFunction(inputArray) {
   const returnArray = [];
   //* [[[startX, endX (exclusive), length], ...], ...]
   const freeArrayIndexesCollection = [];
@@ -52,6 +52,11 @@ export function firstFitFunction(inputArray) {
 
       freeArrayIndexes = newFreeArrayIndexes;
     }
+
+    // Sorteeri vabade lõikude massiiv tagurpidi
+    freeArrayIndexes.sort(function (a, b) {
+      return b[0] - a[0];
+    });
 
     //---- UUTE PROTSESSIDE LISAMINE ETAPPI ----//
     const arrayItem = _cloneDeep(inputArray[i]);

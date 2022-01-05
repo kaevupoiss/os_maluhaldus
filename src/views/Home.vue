@@ -56,6 +56,7 @@
       <div class="buttons">
         <button @click="firstFit()">First-fit</button>
         <button @click="lastFit()">Last-fit</button>
+        <button @click="bestFit()">Best-fit</button>
         <button @click="worstFit()">Worst-fit</button>
         <button @click="randomFit()">Random-fit</button>
         <button @click="clearGraph()">Puhasta väljund</button>
@@ -71,7 +72,11 @@
 
 <script>
 import Graph from "@/components/Graph.vue";
-import { firstFitFunctionWrapper } from "@/js/firstFitFunction.js";
+import { firstFitFunction } from "@/js/firstFitFunction.js";
+import { lastFitFunction } from "@/js/lastFitFunction.js";
+import { bestFitFunction } from "@/js/bestFitFunction.js";
+import { worstFitFunction } from "@/js/worstFitFunction.js";
+import { randomFitFunction } from "@/js/randomFitFunction.js";
 
 export default {
   name: "Home",
@@ -148,9 +153,32 @@ export default {
     firstFit: function () {
       console.log("First-Fit algorithm initiated.");
       this.usedAlgorithm = "First-Fit";
-      this.processes = [...this.formData.selectedArray];
-      let arr = firstFitFunctionWrapper([...this.formData.selectedArray]);
-      this.inputArray = [...arr.result];
+      this.processes = this.formData.selectedArray;
+      this.inputArray = firstFitFunction(this.formData.selectedArray);
+    },
+    lastFit: function () {
+      console.log("Last-Fit algorithm initiated.");
+      this.usedAlgorithm = "Last-Fit";
+      this.processes = this.formData.selectedArray;
+      this.inputArray = lastFitFunction(this.formData.selectedArray);
+    },
+    bestFit: function () {
+      console.log("Best-Fit algorithm initiated.");
+      this.usedAlgorithm = "Best-Fit";
+      this.processes = this.formData.selectedArray;
+      this.inputArray = bestFitFunction(this.formData.selectedArray);
+    },
+    worstFit: function () {
+      console.log("Worst-Fit algorithm initiated.");
+      this.usedAlgorithm = "Worst-Fit";
+      this.processes = this.formData.selectedArray;
+      this.inputArray = worstFitFunction(this.formData.selectedArray);
+    },
+    randomFit: function () {
+      console.log("Random-Fit algorithm initiated.");
+      this.usedAlgorithm = "Random-Fit";
+      this.processes = this.formData.selectedArray;
+      this.inputArray = randomFitFunction(this.formData.selectedArray);
     },
   },
   computed: {

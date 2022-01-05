@@ -24,12 +24,21 @@
             }}
           </div>
           <div
-            v-for="(element, j) in row"
+            v-for="(element, j) in convertedInput[i]"
             :key="'td' + i + '-' + j"
             class="td data"
-            :style="{ gridColumn: element[1] + 3 + ' / ' + (element[2] + 3) }"
+            :class="element == 'T' ? 'full' : null"
+            :style="{
+              backgroundColor: colors[element],
+            }"
           >
-            {{ inputArray ? element[0] : "-" }}
+            {{
+              element == null
+                ? "-"
+                : element == "T"
+                ? "PROTSESS EI MAHU MÄLLU"
+                : element
+            }}
           </div>
         </div>
       </div>
@@ -55,9 +64,60 @@ export default {
   data: function () {
     return {
       alphabet: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],
+      colors: {
+        A: "#59c3ad",
+        B: "#69bd95",
+        C: "#7bb57e",
+        D: "#8dad69",
+        E: "#9da35a",
+        F: "#ad9850",
+        G: "#ba8c4d",
+        H: "#c48051",
+        I: "#cb735a",
+        J: "#cd6868",
+      },
     };
   },
-  computed: {},
+  computed: {
+    convertedInput: function () {
+      let returnArray = [];
+      let inputArray = this.inputArray;
+
+      for (let i = 0; i < inputArray.length; i++) {
+        let cycleArray = inputArray[i];
+        let returnCycleArray = [];
+
+        if (cycleArray[0][0] == null) {
+          returnCycleArray.push("T");
+
+          returnArray.push(returnCycleArray);
+
+          continue;
+        }
+
+        for (let j = 0; j < 50; j++) {
+          let foundLetter = false;
+
+          for (let k = 0; k < cycleArray.length; k++) {
+            let cycleArrayElement = cycleArray[k];
+
+            if (j >= cycleArrayElement[1] && j < cycleArrayElement[2]) {
+              returnCycleArray.push(cycleArrayElement[0]);
+              foundLetter = true;
+              break;
+            }
+          }
+
+          if (foundLetter == true) continue;
+
+          returnCycleArray.push(null);
+        }
+
+        returnArray.push(returnCycleArray);
+      }
+      return returnArray;
+    },
+  },
 };
 </script>
 
@@ -87,8 +147,13 @@ export default {
 }
 
 .td.data {
-  grid-row: 1;
-  background-color: rgba($color: $blue100, $alpha: 1);
+  border: 1px solid rgba($color: $grey300, $alpha: 1);
   text-align: center;
+}
+
+.td.data.full {
+  color: $white;
+  background-color: $grey900;
+  grid-column: 3 / span 50;
 }
 </style>
